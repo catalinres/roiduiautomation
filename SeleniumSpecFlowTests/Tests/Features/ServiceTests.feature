@@ -12,7 +12,7 @@ Scenario: Add a service
 
 Scenario: Delete a service
 	Given I navigate to Service Catalog
-	And I click on the service 'Selenium Test Service 2'
+	And I click on the service 'Test Service A'
 	Then The address should contain 'Services/Detail'
 	And The address should contain a valid Guid
 	Given I click Delete in the bottom bar
