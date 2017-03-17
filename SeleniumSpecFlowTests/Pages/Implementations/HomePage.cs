@@ -4,8 +4,8 @@ namespace SeleniumSpecFlowTests.Pages.Implementations
 {
     public class HomePage : BasePage
     {
-        private IWebElement ServiceCatalogMenuItem => Driver.FindElementWhenVisible(By.ClassName("fa fa-shopping-cart fa-fw"));
-        
+        private IWebElement ServiceCatalogMenuItem => Driver.FindElementWhenVisible(By.XPath("//*[@id='side - menu']/li[2]/a"));
+        //  
         //     public void NavigateToServiceCatalogPage()
         //     {
         //         Driver.FindElementWhenVisible(By.CssSelector("body > nav.topBar .topBarLeft")).Click();
