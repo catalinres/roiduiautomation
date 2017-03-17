@@ -11,10 +11,10 @@ namespace SeleniumSpecFlowTests.Tests.Steps
     public class ServiceTestsSteps
     {
         [Given(@"I navigate to Service Catalog")]
-        public void GivenINavigateToServiceCatalog()
+        public void INavigateToServiceCatalog()
         {
-            ServiceCatalogPage page = new ServiceCatalogPage();
-            page.NavigateToServiceCatalogPage();
+            HomePage page = new HomePage();
+            page.GoToServiceCatalog();
         }
 
         [Given(@"I fill in '(.*)' in the Name field")]

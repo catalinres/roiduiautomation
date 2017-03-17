@@ -8,7 +8,7 @@ namespace SeleniumSpecFlowTests
 {
     public class WebDriver : ChromeDriver
     {
-        const string ManagementPortalUrl = "https://cl82001/identitydirector";
+        const string ManagementPortalUrl = "https://itstore.resqa.res.nl/IdentityDirector";
 
         public WebDriverWait ShortWait => new WebDriverWait(this, TimeSpan.FromSeconds(2));
         public WebDriverWait NormalWait => new WebDriverWait(this, TimeSpan.FromSeconds(5));

@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<test-run id="2" testcasecount="3" result="Failed" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0" engine-version="3.6.0.0" clr-version="4.0.30319.42000" start-time="2017-03-16 17:04:02Z" end-time="2017-03-16 17:04:38Z" duration="35.833831">
+  <command-line><![CDATA[packages\NUnit.ConsoleRunner.3.6.0\tools\nunit3-console  SeleniumSpecFlowTests\bin\Debug\SeleniumSpecFlowTests.dll]]></command-line>
+  <test-suite type="Assembly" id="0-1004" name="SeleniumSpecFlowTests.dll" fullname="C:\TestAutomation\ROSS\SeleniumSpecFlowTests\bin\Debug\SeleniumSpecFlowTests.dll" runstate="Runnable" testcasecount="3" result="Failed" site="Child" start-time="2017-03-16 17:04:02Z" end-time="2017-03-16 17:04:38Z" duration="35.275272" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0">
+    <environment framework-version="3.0.5797.27534" clr-version="4.0.30319.42000" os-version="Microsoft Windows NT 10.0.10586.0" platform="Win32NT" cwd="C:\TestAutomation\ROSS" machine-name="WSL-1060" user="LunguC" user-domain="RES" culture="en-US" uiculture="en-US" os-architecture="x64" />
+    <settings>
+      <setting name="DisposeRunners" value="True" />
+      <setting name="WorkDirectory" value="C:\TestAutomation\ROSS" />
+      <setting name="ImageRuntimeVersion" value="4.0.30319" />
+      <setting name="ImageTargetFrameworkName" value=".NETFramework,Version=v4.5.2" />
+      <setting name="ImageRequiresX86" value="False" />
+      <setting name="ImageRequiresDefaultAppDomainAssemblyResolver" value="False" />
+      <setting name="NumberOfTestWorkers" value="8" />
+    </settings>
+    <properties>
+      <property name="_PID" value="20532" />
+      <property name="_APPDOMAIN" value="domain-" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="TestSuite" id="0-1005" name="SeleniumSpecFlowTests" fullname="SeleniumSpecFlowTests" runstate="Runnable" testcasecount="3" result="Failed" site="Child" start-time="2017-03-16 17:04:02Z" end-time="2017-03-16 17:04:38Z" duration="35.268002" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0">
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="0-1006" name="Tests" fullname="SeleniumSpecFlowTests.Tests" runstate="Runnable" testcasecount="3" result="Failed" site="Child" start-time="2017-03-16 17:04:02Z" end-time="2017-03-16 17:04:38Z" duration="35.267926" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0">
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="0-1007" name="Features" fullname="SeleniumSpecFlowTests.Tests.Features" runstate="Runnable" testcasecount="3" result="Failed" site="Child" start-time="2017-03-16 17:04:02Z" end-time="2017-03-16 17:04:38Z" duration="35.267906" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0">
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="0-1000" name="ServiceTestsFeature" fullname="SeleniumSpecFlowTests.Tests.Features.ServiceTestsFeature" classname="SeleniumSpecFlowTests.Tests.Features.ServiceTestsFeature" runstate="Runnable" testcasecount="3" result="Failed" label="Error" site="TearDown" start-time="2017-03-16 17:04:02Z" end-time="2017-03-16 17:04:38Z" duration="35.264382" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0">
+            <properties>
+              <property name="Description" value="ServiceTests" />
+            </properties>
+            <failure>
+              <message><![CDATA[System.InvalidOperationException : chrome not reachable
+  (Session info: chrome=56.0.2924.87)
+  (Driver info: chromedriver=2.25.426923 (0390b88869384d6eb0d5d09729679f934aab9eed),platform=Windows NT 10.0.10586 x86_64) (100)
+TearDown : System.NullReferenceException : Object reference not set to an instance of an object.]]></message>
+              <stack-trace><![CDATA[   at OpenQA.Selenium.Remote.RemoteWebDriver.UnpackAndThrowOnError(Response errorResponse)
+   at OpenQA.Selenium.Remote.RemoteWebDriver.Execute(String driverCommandToExecute, Dictionary`2 parameters)
+   at OpenQA.Selenium.Remote.RemoteWebDriver.FindElement(String mechanism, String value)
+   at OpenQA.Selenium.Support.UI.ExpectedConditions.<>c__DisplayClass13.<ElementIsVisible>b__12(IWebDriver driver)
+   at OpenQA.Selenium.Support.UI.DefaultWait`1.Until[TResult](Func`2 condition)
+   at SeleniumSpecFlowTests.WebDriver.FindElementWhenVisible(By by) in C:\TestAutomation\ROSS\SeleniumSpecFlowTests\WebDriver.cs:line 53
+   at SeleniumSpecFlowTests.Pages.Implementations.LoginPage.get_Username() in C:\TestAutomation\ROSS\SeleniumSpecFlowTests\Pages\Implementations\LoginPage.cs:line 10
+   at SeleniumSpecFlowTests.Pages.Implementations.LoginPage.Login(String username, String password) in C:\TestAutomation\ROSS\SeleniumSpecFlowTests\Pages\Implementations\LoginPage.cs:line 20
+   at SeleniumSpecFlowTests.Tests.Helpers.TestInitialize.Run() in C:\TestAutomation\ROSS\SeleniumSpecFlowTests\Tests\Helpers\TestInitialize.cs:line 11
+   at SeleniumSpecFlowTests.Tests.Steps.ServiceTestsSteps.Before() in C:\TestAutomation\ROSS\SeleniumSpecFlowTests\Tests\Steps\ServiceTestsSteps.cs:line 110
+   at TechTalk.SpecFlow.Bindings.BindingInvoker.InvokeBinding(IBinding binding, IContextManager contextManager, Object[] arguments, ITestTracer testTracer, TimeSpan& duration)
+   at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.FireEvents(HookType bindingEvent)
+   at TechTalk.SpecFlow.TestRunnerManager.InitializeBindingRegistry(ITestRunner testRunner)
+   at TechTalk.SpecFlow.TestRunnerManager.CreateTestRunner(Int32 threadId)
+   at TechTalk.SpecFlow.TestRunnerManager.GetTestRunner(Int32 threadId)
+   at TechTalk.SpecFlow.TestRunnerManager.GetTestRunner(Assembly testAssembly, Nullable`1 managedThreadId)
+   at SeleniumSpecFlowTests.Tests.Features.ServiceTestsFeature.FeatureSetup() in C:\TestAutomation\ROSS\SeleniumSpecFlowTests\Tests\Features\ServiceTests.feature.cs:line 0
+--TearDown
+   at SeleniumSpecFlowTests.Tests.Features.ServiceTestsFeature.FeatureTearDown() in C:\TestAutomation\ROSS\SeleniumSpecFlowTests\Tests\Features\ServiceTests.feature.cs:line 0]]></stack-trace>
+            </failure>
+            <test-case id="0-1002" name="AddAndEditAService" fullname="SeleniumSpecFlowTests.Tests.Features.ServiceTestsFeature.AddAndEditAService" methodname="AddAndEditAService" classname="SeleniumSpecFlowTests.Tests.Features.ServiceTestsFeature" runstate="Runnable" seed="1630670862" result="Failed" label="Error" site="Parent" start-time="0001-01-01 00:00:00Z" end-time="0001-01-01 00:00:00Z" duration="0.000000" asserts="0">
+              <properties>
+                <property name="Description" value="Add and edit a service" />
+              </properties>
+              <failure>
+                <message><![CDATA[OneTimeSetUp: System.InvalidOperationException : chrome not reachable
+  (Session info: chrome=56.0.2924.87)
+  (Driver info: chromedriver=2.25.426923 (0390b88869384d6eb0d5d09729679f934aab9eed),platform=Windows NT 10.0.10586 x86_64) (100)]]></message>
+              </failure>
+            </test-case>
+            <test-case id="0-1001" name="AddAService" fullname="SeleniumSpecFlowTests.Tests.Features.ServiceTestsFeature.AddAService" methodname="AddAService" classname="SeleniumSpecFlowTests.Tests.Features.ServiceTestsFeature" runstate="Runnable" seed="798259755" result="Failed" label="Error" site="Parent" start-time="0001-01-01 00:00:00Z" end-time="0001-01-01 00:00:00Z" duration="0.000000" asserts="0">
+              <properties>
+                <property name="Description" value="Add a service" />
+              </properties>
+              <failure>
+                <message><![CDATA[OneTimeSetUp: System.InvalidOperationException : chrome not reachable
+  (Session info: chrome=56.0.2924.87)
+  (Driver info: chromedriver=2.25.426923 (0390b88869384d6eb0d5d09729679f934aab9eed),platform=Windows NT 10.0.10586 x86_64) (100)]]></message>
+              </failure>
+            </test-case>
+            <test-case id="0-1003" name="DeleteSeleniumTestService" fullname="SeleniumSpecFlowTests.Tests.Features.ServiceTestsFeature.DeleteSeleniumTestService" methodname="DeleteSeleniumTestService" classname="SeleniumSpecFlowTests.Tests.Features.ServiceTestsFeature" runstate="Runnable" seed="993609143" result="Failed" label="Error" site="Parent" start-time="0001-01-01 00:00:00Z" end-time="0001-01-01 00:00:00Z" duration="0.000000" asserts="0">
+              <properties>
+                <property name="Description" value="Delete 'Selenium Test Service'" />
+              </properties>
+              <failure>
+                <message><![CDATA[OneTimeSetUp: System.InvalidOperationException : chrome not reachable
+  (Session info: chrome=56.0.2924.87)
+  (Driver info: chromedriver=2.25.426923 (0390b88869384d6eb0d5d09729679f934aab9eed),platform=Windows NT 10.0.10586 x86_64) (100)]]></message>
+              </failure>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
