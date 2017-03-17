@@ -34,7 +34,7 @@ namespace SeleniumSpecFlowTests
 
         private void Initialize()
         {
-            Navigate().GoToUrl(ManagementPortalUrl);
+            Navigate().GoToUrl("https://cl82001/IdentityDirector");
         }
 
         public static WebDriver Instance()
