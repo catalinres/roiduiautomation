@@ -14,8 +14,13 @@ namespace SeleniumSpecFlowTests.Tests.Steps
         [Given(@"I navigate to Service Catalog")]
         public void INavigateToServiceCatalog()
         {
-            HomePage page = new HomePage();
-            page.GoToServiceCatalog();
+            Menu.GoToServiceCatalog();
+        }
+
+        [Then(@"I navigate to Home Page")]
+        public void INavigateToHomePage()
+        {
+            Menu.GoToHomePage();
         }
 
         [Given(@"I fill in '(.*)' in the Name field")]
