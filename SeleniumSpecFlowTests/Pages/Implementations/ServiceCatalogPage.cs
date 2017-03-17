@@ -6,11 +6,11 @@ namespace SeleniumSpecFlowTests.Pages.Implementations
     {
         private IWebElement NameField => Driver.FindElementWhenVisible(By.Id("name"));
 
-        public void NavigateToServiceCatalogPage()
-        {
-            Driver.FindElementWhenVisible(By.CssSelector("body > nav.topBar .topBarLeft")).Click();
-            Driver.FindElementWhenVisible(By.CssSelector("body > nav.topBar .topBarLeft .dropdown-menu li:nth-child(3)")).Click();
-        }
+ //     public void NavigateToServiceCatalogPage()
+ //     {
+ //         Driver.FindElementWhenVisible(By.CssSelector("body > nav.topBar .topBarLeft")).Click();
+ //         Driver.FindElementWhenVisible(By.CssSelector("body > nav.topBar .topBarLeft .dropdown-menu li:nth-child(3)")).Click();
+ //     }
 
         public void FillInNameField(string name)
         {

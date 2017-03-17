@@ -1,9 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿//using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using SeleniumSpecFlowTests.Pages.Common;
 using SeleniumSpecFlowTests.Pages.Implementations;
 using SeleniumSpecFlowTests.Tests.Helpers;
 using TechTalk.SpecFlow;
+using NUnit.Framework; //added instead of microsoft framework
 
 namespace SeleniumSpecFlowTests.Tests.Steps
 {
