@@ -30,3 +30,5 @@ C:\TestAutomation\ROSS\SeleniumSpecFlowTests\bin\Debug\WebDriver.Support.xml
 C:\TestAutomation\ROSS\SeleniumSpecFlowTests\obj\Debug\SeleniumSpecFlowTests.csprojResolveAssemblyReference.cache
 C:\TestAutomation\ROSS\SeleniumSpecFlowTests\obj\Debug\SeleniumSpecFlowTests.dll
 C:\TestAutomation\ROSS\SeleniumSpecFlowTests\obj\Debug\SeleniumSpecFlowTests.pdb
+C:\TestAutomation\ROSS\SeleniumSpecFlowTests\bin\Debug\TestRail.dll
+C:\TestAutomation\ROSS\SeleniumSpecFlowTests\bin\Debug\TestRail.pdb

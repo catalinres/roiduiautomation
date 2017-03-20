@@ -109,6 +109,11 @@ namespace SeleniumSpecFlowTests.Tests.Steps
             Assert.IsTrue(BottomBar.SaveButtonIsDisabled());
         }
 
+        //[AfterScenario]
+        //protected static void AfterEachScenario()
+        //{
+        //    TestTeardown.RunAfterEach();
+        //}
 
         [BeforeTestRun]
         protected static void Before()
@@ -120,6 +125,7 @@ namespace SeleniumSpecFlowTests.Tests.Steps
         protected static void After()
         {
             TestTeardown.Run();
+            TestTeardown.RunAfterEach();
         }
     }
 }
