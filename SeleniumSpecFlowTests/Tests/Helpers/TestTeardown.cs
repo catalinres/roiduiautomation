@@ -32,19 +32,23 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
             string TRUser = "c.lungu@res.com";
             string TRPassword = "Resforever123!";
             //initialize TR
+            Console.WriteLine("TEST");
             TestRailClient trail = new TestRailClient(TRURL,TRUser,TRPassword);
+            Console.WriteLine("TEST - 2");
             trail.AddPlanEntry(TestPlanID, TestSuiteID, "TestRunCreatedByMe",null,caseIDsList);
+            Console.WriteLine("TEST - 3");
+
             //Get current scenario name
 
             //Get current scenario status (P/F)
 
             //Get error on failed tests:
-                //if (ScenarioContext.Current.TestError != null)
-                //{
-                //    var error = ScenarioContext.Current.TestError;
-                //    string errMsg = error.Message;
-                //    string errType = error.GetType().Name;
-                //}
+            //if (ScenarioContext.Current.TestError != null)
+            //{
+            //    var error = ScenarioContext.Current.TestError;
+            //    string errMsg = error.Message;
+            //    string errType = error.GetType().Name;
+            //}
 
         }
 
