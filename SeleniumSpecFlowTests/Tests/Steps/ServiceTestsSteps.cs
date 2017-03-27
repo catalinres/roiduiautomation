@@ -127,5 +127,12 @@ namespace SeleniumSpecFlowTests.Tests.Steps
             TestTeardown.Run();
             //TestTeardown.RunAfterEach();
         }
+        [AfterScenario]
+        protected static void AfterScenario()
+        {
+            TestTeardown.Run();
+            TestTeardown.RunAfterEach();
+        }
+
     }
 }
