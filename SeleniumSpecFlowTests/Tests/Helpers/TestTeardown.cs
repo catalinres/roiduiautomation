@@ -35,7 +35,10 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
             string TRURL = "https://catalinres.testrail.net";
             string TRUser = "c.lungu@res.com";
             string TRPassword = "Resforever123!";
-            string FeatureFilePath = "\\SeleniumSpecFlowTests\\Tests\\Features\\ServiceTests.feature";
+            string FeatureFilePath = Directory.GetCurrentDirectory() + @"\SeleniumSpecFlowTests\Tests\Features\ServiceTests.feature";
+
+          //  Could not find a part of the path 'c:\SeleniumSpecFlowTests\Tests\Features\ServiceTests.feature'.--TearDown
+
             TestRailClient trail = new TestRailClient(TRURL, TRUser, TRPassword);
             //Get current scenario name and tags and id
             var scenarioTitle = ScenarioContext.Current.ScenarioInfo.Title;
