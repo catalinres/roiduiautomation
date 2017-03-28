@@ -130,7 +130,6 @@ namespace SeleniumSpecFlowTests.Tests.Steps
         [AfterScenario]
         protected static void AfterScenario()
         {
-            TestTeardown.Run();
             TestTeardown.RunAfterEach();
         }
 
