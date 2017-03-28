@@ -46,6 +46,7 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
             var currentScenarioID = scenarioTitle.Split(' ')[0];
             //Get current scenario steps by parsing the feature file
             string scenarioText = "";
+            //Console.WriteLine("====BEFORE FILE READ");
             string[] lines = File.ReadAllLines(FeatureFilePath, System.Text.Encoding.UTF8); 
             for (int i=0; i<lines.Length;  i++)
             {
@@ -62,6 +63,7 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
                         else
                         {
                             scenarioText = scenarioText + lines[j] + System.Environment.NewLine;
+                            //Console.WriteLine("===============================" + scenarioText);
                             j++;
                         };
                     };
@@ -88,7 +90,7 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
             }
             else
             {
-
+                trail.AddCase(TestAutomationSectionID, scenarioTitle, null, null, null, null, scenarioText);
             };
 
 
