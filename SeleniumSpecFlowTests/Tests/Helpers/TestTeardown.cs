@@ -70,6 +70,9 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
                 };
             };
 
+            Console.WriteLine("-=-=-=-=-=-=-=-=-=-=-TRAIL CASE REFERENCES");
+            Console.WriteLine(trail.GetCase(4).References.ToString());
+
             //get list of existing scenarios from TestRail and scan for current scenario
             List<TestRail.Types.Case> TRCasesList = trail.GetCases(TestProjectID, TestSuiteID, TestAutomationSectionID);
             int casestep = 0;
@@ -90,8 +93,11 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
             }
             else
             {
-                trail.AddCase(TestAutomationSectionID, scenarioTitle, null, null, null, null, null);
+//                trail.AddCase(TestAutomationSectionID, scenarioTitle, null, null, null, null, null);
             };
+
+//            //trail.AddRun(TestProjectID, TestSuiteID, "MyTestRun", "myTRDesc", 1, null, null);
+
 
 
 
@@ -102,7 +108,6 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
 
             //trail.AddPlanEntry(TestPlanID, TestSuiteID, "TestRunCreatedByMe",null, caseIDsList);
 
-            trail.AddRun(TestProjectID, TestSuiteID, "MyTestRun", "myTRDesc", 1, null, null);
 
             //Get current scenario status (P/F)
 
