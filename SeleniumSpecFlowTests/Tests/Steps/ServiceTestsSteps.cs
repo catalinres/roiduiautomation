@@ -127,10 +127,12 @@ namespace SeleniumSpecFlowTests.Tests.Steps
             TestTeardown.Run();
             //TestTeardown.RunAfterEach();
         }
+
         [AfterScenario]
-        protected static void AfterScenario()
+        public void AfterScenario()
         {
-            TestTeardown.RunAfterEach();
+            TRHelper TRH = new TRHelper();
+            TRH.RunAfterEach();
         }
 
     }

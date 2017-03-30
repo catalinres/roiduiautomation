@@ -20,8 +20,13 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
             // End browser session
             WebDriver.Instance().Quit();
         }
-
-        public static void RunAfterEach()
+    }
+    public class TRHelper : TestRailClient
+    {
+        public TRHelper() : base(Globals.TRURL, Globals.TRUser, Globals.TRPass)
+        {
+        }
+        public void RunAfterEach()
         {
             // TestRail stuff
             ulong TestProjectID = 1;
@@ -32,14 +37,11 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
             //List<ulong> caseIDsList = { 99, 98, 92, 97, 95 };
 
             //initialize TR
-            string TRURL = "https://catalinres.testrail.net";
-            string TRUser = "c.lungu@res.com";
-            string TRPassword = "Resforever123!";
             string FeatureFilePath = Directory.GetCurrentDirectory() + @"\SeleniumSpecFlowTests\Tests\Features\ServiceTests.feature";
 
-          //  Could not find a part of the path 'c:\SeleniumSpecFlowTests\Tests\Features\ServiceTests.feature'.--TearDown
+            //  Could not find a part of the path 'c:\SeleniumSpecFlowTests\Tests\Features\ServiceTests.feature'.--TearDown
 
-            TestRailClient trail = new TestRailClient(TRURL, TRUser, TRPassword);
+            TestRailClient trail = new TestRailClient(Globals.TRURL, Globals.TRUser, Globals.TRPass);
             //Get current scenario name and tags and id
             var scenarioTitle = ScenarioContext.Current.ScenarioInfo.Title;
             var scenarioTags = ScenarioContext.Current.ScenarioInfo.Tags;
@@ -47,14 +49,14 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
             //Get current scenario steps by parsing the feature file
             string scenarioText = "";
             Console.WriteLine("====BEFORE FILE READ");
-            string[] lines = File.ReadAllLines(FeatureFilePath, System.Text.Encoding.UTF8); 
-            for (int i=0; i<lines.Length;  i++)
+            string[] lines = File.ReadAllLines(FeatureFilePath, System.Text.Encoding.UTF8);
+            for (int i = 0; i < lines.Length; i++)
             {
                 if (lines[i].Contains(currentScenarioID))
-                    {
+                {
                     bool ScenarioEnd = false;
-                    int j = i+1;
-                    while ((j<lines.Length) && (ScenarioEnd != true))
+                    int j = i + 1;
+                    while ((j < lines.Length) && (ScenarioEnd != true))
                     {
                         if (lines[j].Contains("Scenario:"))
                         {
@@ -70,33 +72,43 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
                 };
             };
 
-            Console.WriteLine("-=-=-=-=-=-=-=-=-=-=-TRAIL CASE REFERENCES");
-            Console.WriteLine(trail.GetCase(4).References.ToString());
 
             //get list of existing scenarios from TestRail and scan for current scenario
             List<TestRail.Types.Case> TRCasesList = trail.GetCases(TestProjectID, TestSuiteID, TestAutomationSectionID);
             int casestep = 0;
             ulong caseToUpdateID = 0;
             while ((casestep < TRCasesList.Count) && (caseToUpdateID != 0))
-                {
+            {
                 if (TRCasesList[casestep].Title.Contains(currentScenarioID))
                 {
                     caseToUpdateID = TRCasesList[casestep].ID.Value;
-                    
+
                 };
                 casestep++;
             };
             //if current scenario exists in TestRail, then update it, else create a new one
             if (caseToUpdateID != 0)
             {
-                trail.UpdateCase(caseToUpdateID, scenarioTitle, null, null, null, null, scenarioText);
+                Console.WriteLine("-=-=-=-=-=-=-=-=-=-=-TRAIL CASE REFERENCES");
+                Console.WriteLine(trail.GetCase(caseToUpdateID).References.ToString());
+
+                //trail.UpdateCase(caseToUpdateID, scenarioTitle, null, null, null, null, scenarioText);
+
             }
             else
             {
-//                trail.AddCase(TestAutomationSectionID, scenarioTitle, null, null, null, null, null);
+                //                trail.AddCase(TestAutomationSectionID, scenarioTitle, null, null, null, null, null);
+
+                JObject customs = new JObject(
+                    new JProperty("custom_steps", scenarioText)
+                 );
+
+                _AddCase_(TestAutomationSectionID, scenarioTitle, null, null, null, null, null, customs);
+
+
             };
 
-//            //trail.AddRun(TestProjectID, TestSuiteID, "MyTestRun", "myTRDesc", 1, null, null);
+            //            //trail.AddRun(TestProjectID, TestSuiteID, "MyTestRun", "myTRDesc", 1, null, null);
 
 
 
@@ -120,6 +132,7 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
             //}
 
         }
+
 
     }
 }
