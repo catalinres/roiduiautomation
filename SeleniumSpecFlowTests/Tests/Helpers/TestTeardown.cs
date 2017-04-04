@@ -116,8 +116,10 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
             //If current test run does not exist, create it and get the ID, else get ID from existing one
             List<TestRail.Types.Run> Test_Runs = trail.GetRuns(TestProjectID);
             ulong runID = 0;
+            Console.WriteLine("---------- TEST RUNS LIST");
             for (int i = 0; i < Test_Runs.Count; i++)
             {
+                Console.WriteLine("---------- " + Test_Runs[i].Name);
                 if (Test_Runs[i].Name == Globals.TRRunName)
                 {
                     runID = Test_Runs[i].ID.Value;
@@ -178,10 +180,13 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
                 List<ulong> newCaseIDs = new List<ulong>();
                 newCaseIDs.Add(caseToUpdateID);
                 trail.AddPlanEntry(TestPlanID, TestSuiteID, Globals.TRRunName, null, newCaseIDs);
+                System.Threading.Thread.Sleep(3000);
                 //search for test run id (newly added run)
                 Test_Runs = trail.GetRuns(TestProjectID);
+                Console.WriteLine("---------- TEST RUNS LIST");
                 for (int i = 0; i < Test_Runs.Count; i++)
                 {
+                    Console.WriteLine("---------- " + Test_Runs[i].Name);
                     if (Test_Runs[i].Name == Globals.TRRunName)
                     {
                         runID = Test_Runs[i].ID.Value;
