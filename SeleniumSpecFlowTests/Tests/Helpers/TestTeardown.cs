@@ -33,14 +33,8 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
             ulong TestSuiteID = 1;
             ulong TestPlanID = 2;
             ulong TestAutomationSectionID = 1;
-            //HashSet<ulong> caseIDsList = new HashSet<ulong> { 4, 8 };
-            //List<ulong> caseIDsList = { 99, 98, 92, 97, 95 };
-
             //initialize TR
             string FeatureFilePath = Directory.GetCurrentDirectory() + @"\SeleniumSpecFlowTests\Tests\Features\ServiceTests.feature";
-
-            //  Could not find a part of the path 'c:\SeleniumSpecFlowTests\Tests\Features\ServiceTests.feature'.--TearDown
-
             TestRailClient trail = new TestRailClient(Globals.TRURL, Globals.TRUser, Globals.TRPass);
             //Get current scenario name and tags and id
             var scenarioTitle = ScenarioContext.Current.ScenarioInfo.Title;
@@ -48,7 +42,6 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
             var currentScenarioID = scenarioTitle.Split(' ')[0];
             //Get current scenario steps by parsing the feature file
             string scenarioText = "";
-            Console.WriteLine("====BEFORE FILE READ");
             string[] lines = File.ReadAllLines(FeatureFilePath, System.Text.Encoding.UTF8);
             for (int i = 0; i < lines.Length; i++)
             {
@@ -65,14 +58,11 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
                         else
                         {
                             scenarioText = scenarioText + lines[j] + System.Environment.NewLine;
-                            Console.WriteLine("===============================" + scenarioText);
                             j++;
                         };
                     };
                 };
             };
-
-
             //get list of existing scenarios from TestRail and scan for current scenario
             List<TestRail.Types.Case> TRCasesList = trail.GetCases(TestProjectID, TestSuiteID, TestAutomationSectionID);
             int casestep = 0;
@@ -82,31 +72,147 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
                 if (TRCasesList[casestep].Title.Contains(currentScenarioID))
                 {
                     caseToUpdateID = TRCasesList[casestep].ID.Value;
-
                 };
                 casestep++;
             };
+            //place scenario body in custom field - JSON:
+            JObject customs = new JObject(
+                new JProperty("custom_steps", scenarioText)
+            );
             //if current scenario exists in TestRail, then update it, else create a new one
             if (caseToUpdateID != 0)
             {
-                Console.WriteLine("-=-=-=-=-=-=-=-=-=-=-TRAIL CASE REFERENCES");
-                Console.WriteLine(trail.GetCase(caseToUpdateID).References.ToString());
-
-                //trail.UpdateCase(caseToUpdateID, scenarioTitle, null, null, null, null, scenarioText);
-
+                _UpdateCase_(caseToUpdateID, scenarioTitle, null, null, null, null, null, customs);
             }
             else
             {
-                //                trail.AddCase(TestAutomationSectionID, scenarioTitle, null, null, null, null, null);
-
-                JObject customs = new JObject(
-                    new JProperty("custom_steps", scenarioText)
-                 );
-
                 _AddCase_(TestAutomationSectionID, scenarioTitle, null, null, null, null, null, customs);
+        //retrieve id of currently added test -> use the loop to make sure no others were added meanwhile :)
+                TRCasesList = trail.GetCases(TestProjectID, TestSuiteID, TestAutomationSectionID);
+                casestep = 0;
+                while ((casestep < TRCasesList.Count) && (caseToUpdateID != 0))
+                {
+                    if (TRCasesList[casestep].Title.Contains(currentScenarioID))
+                    {
+                        caseToUpdateID = TRCasesList[casestep].ID.Value;
 
-
+                    };
+                    casestep++;
+                };
+                if (caseToUpdateID == 0)
+                {
+                    Console.WriteLine("!!!!!!!! ========= SOMEHOW THE TEST CASE WAS NOT ADDED AND CASE ID IS NULL SO CASE WON'T BE ADDED TO TEST RUN ========== !!!!!!!");
+                }
             };
+            //set current test run name based on ENV variable
+            if (Globals.TR_RUN_NAME != null)
+            {
+                Globals.TRRunName = Globals.TR_RUN_NAME;
+            }
+            else
+            {
+                Globals.TRRunName = DateTime.Now.ToShortDateString() + " - Automated Run"; //this will not be used if the env variable TR_RUN_NAME exists and has a value
+            }
+            //If current test run does not exist, create it and get the ID, else get ID from existing one
+            List<TestRail.Types.Run> Test_Runs = trail.GetRuns(TestProjectID);
+            ulong runID = 0;
+            for (int i = 0; i < Test_Runs.Count; i++)
+            {
+                if (Test_Runs[i].Name == Globals.TRRunName)
+                {
+                    runID = Test_Runs[i].ID.Value;
+                }
+            }
+            if (runID !=0) //run exists so let's add the scenario to it and also add the result to the scenario
+            {
+                //update existing test run -> add current scenario if not in there already
+                List<TestRail.Types.Test> CasesList = trail.GetTests(runID);
+                ulong TCaseID = 0;
+                for (int i = 0; i < CasesList.Count; i++)
+                {
+                    if (CasesList[i].Title.Contains(currentScenarioID))
+                    {
+                        TCaseID = CasesList[i].ID.Value;
+                    }
+                }
+                if (TCaseID !=0)  //test case was already added to current test run so we are updating its run result
+                {
+                    //Passed = 1,
+                    //Blocked = 2,
+                    //Untested = 3,
+                    //Retest = 4,
+                    //Failed = 5,
+                    trail.AddResultForCase(runID, TCaseID, TestRail.Types.ResultStatus.Passed, "Test Run Result added automatically", null, null, null, null, null);
+                }
+                else  //test case was not added to test run so we are adding it to the test run and setting its run result
+                {
+//!                    TestRail.Types.Case newCase = trail.GetCase(caseToUpdateID);
+                    HashSet<ulong> newCaseIDs = new HashSet<ulong>();
+//                    List<ulong> newCaseIDs = new List<ulong>();
+                    newCaseIDs.Add(caseToUpdateID);
+//                    trail.UpdatePlanEntry(TestPlanID, runID.ToString(), Globals.TRRunName, null, newCaseIDs);
+                    trail.UpdateRun(runID, Globals.TRRunName, null, null, newCaseIDs);
+                    System.Threading.Thread.Sleep(3000);
+                    CasesList = trail.GetTests(runID);
+                    for (int i = 0; i < CasesList.Count; i++)
+                    {
+                        if (CasesList[i].Title.Contains(currentScenarioID))
+                        {
+                            TCaseID = CasesList[i].ID.Value;
+                        }
+                    }
+                    if (TCaseID !=0)
+                    {
+                        trail.AddResultForCase(runID, TCaseID, TestRail.Types.ResultStatus.Passed, "Test Run Result added automatically", null, null, null, null, null);
+                    }
+                    else
+                    {
+                        Console.WriteLine("!!!!!!!! ========= SOMEHOW THE TEST WAS NOT ADDED To the test run ========== !!!!!!!");
+                    }
+
+                }
+
+            }
+            else //run does not exist, so let's create it, then let's add the scenario to it and also the result to the scenario
+            {
+                List<ulong> newCaseIDs = new List<ulong>();
+                newCaseIDs.Add(caseToUpdateID);
+                trail.AddPlanEntry(TestPlanID, TestSuiteID, Globals.TRRunName, null, newCaseIDs);
+                //search for test run id (newly added run)
+                Test_Runs = trail.GetRuns(TestProjectID);
+                for (int i = 0; i < Test_Runs.Count; i++)
+                {
+                    if (Test_Runs[i].Name == Globals.TRRunName)
+                    {
+                        runID = Test_Runs[i].ID.Value;
+                    }
+                }
+                if (runID == 0)
+                {
+                    Console.WriteLine("!!!!!!!! ========= SOMEHOW THE RUN ID is 0  - run was not added to test plan ========== !!!!!!!");
+                }
+                //search for the test id inside the run
+                List<TestRail.Types.Test> CasesList = trail.GetTests(runID);
+                ulong TCaseID = 0;
+                for (int i = 0; i < CasesList.Count; i++)
+                {
+                    if (CasesList[i].Title.Contains(currentScenarioID))
+                    {
+                        TCaseID = CasesList[i].ID.Value;
+                    }
+                }
+                if (TCaseID == 0)
+                {
+                    Console.WriteLine("!!!!!!!! ========= SOMEHOW THE TC ID is 0  - test was not added to test run when creating the test run ========== !!!!!!!");
+                }
+                //add result for test inside the test run
+                trail.AddResultForCase(runID, TCaseID, TestRail.Types.ResultStatus.Passed, "Test Run Result added automatically", null, null, null, null, null);
+
+            }
+
+
+            //Test_Runs[1].Name
+
 
             //            //trail.AddRun(TestProjectID, TestSuiteID, "MyTestRun", "myTRDesc", 1, null, null);
 

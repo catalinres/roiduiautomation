@@ -4,12 +4,13 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using NUnit.Framework; //added instead of microsoft framework
+using SeleniumSpecFlowTests.Tests.Helpers;
 
 namespace SeleniumSpecFlowTests
 {
     public class WebDriver : ChromeDriver
     {
-        const string ManagementPortalUrl = "https://cl82001/identitydirector";
+        //const string ManagementPortalUrl = "https://cl82001/identitydirector";
 
         public WebDriverWait ShortWait => new WebDriverWait(this, TimeSpan.FromSeconds(2));
         public WebDriverWait NormalWait => new WebDriverWait(this, TimeSpan.FromSeconds(5));
@@ -34,7 +35,7 @@ namespace SeleniumSpecFlowTests
 
         private void Initialize()
         {
-            Navigate().GoToUrl(ManagementPortalUrl);
+            Navigate().GoToUrl(Globals.ManagementPortalUrl);
         }
 
         public static WebDriver Instance()
