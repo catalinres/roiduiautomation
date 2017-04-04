@@ -67,7 +67,7 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
             List<TestRail.Types.Case> TRCasesList = trail.GetCases(TestProjectID, TestSuiteID, TestAutomationSectionID);
             int casestep = 0;
             ulong caseToUpdateID = 0;
-            while ((casestep < TRCasesList.Count) && (caseToUpdateID != 0))
+            while ((casestep < TRCasesList.Count) && (caseToUpdateID == 0))
             {
                 if (TRCasesList[casestep].Title.Contains(currentScenarioID))
                 {
@@ -90,7 +90,7 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
         //retrieve id of currently added test -> use the loop to make sure no others were added meanwhile :)
                 TRCasesList = trail.GetCases(TestProjectID, TestSuiteID, TestAutomationSectionID);
                 casestep = 0;
-                while ((casestep < TRCasesList.Count) && (caseToUpdateID != 0))
+                while ((casestep < TRCasesList.Count) && (caseToUpdateID == 0))
                 {
                     if (TRCasesList[casestep].Title.Contains(currentScenarioID))
                     {

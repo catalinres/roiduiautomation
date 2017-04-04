@@ -3,7 +3,7 @@
 Scenario: Services_01 - Add a service
 	Given I navigate to Service Catalog
 	And I click Add in the bottom bar
-	And I fill in '----Test Service A' in the Name field
+	And I fill in '--1Test Service A' in the Name field
 	When I click Save in the bottom bar
 	And I wait until the page is redirected
 	Then The address should contain 'Services/Detail'
@@ -12,7 +12,7 @@ Scenario: Services_01 - Add a service
 
 Scenario: Services_02 - Delete a service
 	Given I navigate to Service Catalog
-	And I click on the service '----Test Service A'
+	And I click on the service '--1Test Service A'
 	Then The address should contain 'Services/Detail'
 	And The address should contain a valid Guid
 	Given I click Delete in the bottom bar
