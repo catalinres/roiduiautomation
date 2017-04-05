@@ -161,37 +161,38 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
 
                     Console.WriteLine("ZZZZZZZZ - tryin to add case to test run:---");
                     //!TestRail.Types.Case newCase = trail.GetCase(caseToUpdateID);
-                    HashSet<ulong> newCaseIDs = new HashSet<ulong>();
-                    //List<ulong> newCaseIDs = new List<ulong>();
-                    newCaseIDs = trail.GetPlan(TestPlanID).Entries[runIDindex].RunList[0].CaseIDs;
-                    //trail.GetRun(runID).CaseIDs.
-                    Console.WriteLine("caseIDs list: ");
-                    //newCaseIDs = trail.GetRun(runID).CaseIDs;
-                    ulong[] uArray = new ulong[20];
-                    newCaseIDs.CopyTo(uArray);
-                    foreach (ulong i in uArray)
-                    {
-                        Console.WriteLine("item: --------> ");
-                        Console.WriteLine(i);
-                    }
+                    //HashSet<ulong> newCaseIDs = new HashSet<ulong>();
+                    List<ulong> newCaseIDs = new List<ulong>();
 
+                    //newCaseIDs = trail.GetPlan(TestPlanID).Entries[runIDindex].RunList[0].CaseIDs;
+                    //trail.GetRun(runID).CaseIDs.
+                    //Console.WriteLine("caseIDs list: ");
+                    //newCaseIDs = trail.GetRun(runID).CaseIDs;
                     //for (int i=0; i<newCaseIDs.Count; i++)
                     //{
                     //    Console.WriteLine("item: --------> " + newCaseIDs.);
                     //}
-
-                    newCaseIDs.Add(caseToUpdateID);
-                    uArray = new ulong[20];
-                    newCaseIDs.CopyTo(uArray);
-                    foreach (ulong i in uArray)
+                    foreach (TestRail.Types.Test TestCaseInRun in trail.GetTests(runID))
                     {
-                        Console.WriteLine("item: --------> ");
-                        Console.WriteLine(i);
+                        //string tccode = TestCaseInRun.Title;
+                        foreach (TestRail.Types.Case TestCaseInSuite in trail.GetCases(TestProjectID, TestSuiteID, TestAutomationSectionID))
+                        {
+                            if (TestCaseInSuite.Title == TestCaseInRun.Title)
+                            {
+                                newCaseIDs.Add(TestCaseInSuite.ID.Value);
+                            }
+                        }
+                    }
+                    newCaseIDs.Add(caseToUpdateID);
+
+                    foreach (ulong cid in newCaseIDs)
+                    {
+                        Console.WriteLine("item ----> " + cid.ToString());
                     }
 
-
-                    //trail.UpdatePlanEntry(TestPlanID, trail.GetPlan(TestPlanID).Entries[runIDindex].ID, Globals.TRRunName, null, newCaseIDs);
-                    trail.UpdateRun(runID, Globals.TRRunName, null, null, newCaseIDs);
+                    trail.UpdatePlanEntry(TestPlanID, trail.GetPlan(TestPlanID).Entries[runIDindex].ID, Globals.TRRunName, null, newCaseIDs);
+                    
+                    //trail.UpdateRun(runID, Globals.TRRunName, null, null, newCaseIDs);
                     System.Threading.Thread.Sleep(3000);
                     CasesList = trail.GetTests(runID);
                     for (int i = 0; i < CasesList.Count; i++)
@@ -227,10 +228,10 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
                 //search for test run id (newly added run)
                 Test_Runs = trail.GetPlan(TestPlanID).Entries;
                 runIDindex = -1;
-                Console.WriteLine("---------- TEST RUNS LIST");
+                //Console.WriteLine("---------- TEST RUNS LIST");
                 for (int i = 0; i < Test_Runs.Count; i++)
                 {
-                    Console.WriteLine("---------- " + Test_Runs[i].Name);
+                    //Console.WriteLine("---------- " + Test_Runs[i].Name);
                     if (Test_Runs[i].Name == Globals.TRRunName)
                     {
                         runIDindex = i;
