@@ -161,6 +161,7 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
                     //!TestRail.Types.Case newCase = trail.GetCase(caseToUpdateID);
                     //HashSet<ulong> newCaseIDs = new HashSet<ulong>();
                     List<ulong> newCaseIDs = new List<ulong>();
+                    newCaseIDs = trail.GetPlan(TestPlanID).Entries[runIDindex].CaseIDs;
                     newCaseIDs.Add(caseToUpdateID);
                     trail.UpdatePlanEntry(TestPlanID, trail.GetPlan(TestPlanID).Entries[runIDindex].ID, Globals.TRRunName, null, newCaseIDs);
                     //trail.UpdateRun(runID, Globals.TRRunName, null, null, newCaseIDs);
