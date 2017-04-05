@@ -151,6 +151,7 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
                     //Failed = 5,
                     //TestRail.Types.ResultStatus TCStatus = new TestRail.Types.ResultStatus();
                     //TCStatus = TestRail.Types.ResultStatus.Passed;
+                    Console.WriteLine("-----Updating existing test case in test run, no need to add another test case to the run: ");
                     trail.AddResult(TCaseID, TestRail.Types.ResultStatus.Passed, "Test Run Result added automatically", null, null, null, null, null);
                     //trail.AddResultForCase(runID, TCaseID, TCStatus, "Test Run Result added automatically", null, null, null, null, null);
                     //trail.AddResultForCase(runID, TCaseID, TestRail.Types.ResultStatus.Passed, "Test Run Result added automatically", null, null, null, null, null);
@@ -159,19 +160,32 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
                 {
                     
                     //!TestRail.Types.Case newCase = trail.GetCase(caseToUpdateID);
-                    //HashSet<ulong> newCaseIDs = new HashSet<ulong>();
-                    List<ulong> newCaseIDs = new List<ulong>();
-                    newCaseIDs = trail.GetPlan(TestPlanID).Entries[runIDindex].CaseIDs;
-                    //newCaseIDs = trail.GetRun(runID).CaseIDs;
+                    HashSet<ulong> newCaseIDs = new HashSet<ulong>();
+                    //List<ulong> newCaseIDs = new List<ulong>();
+                    //newCaseIDs = trail.GetPlan(TestPlanID).Entries[runIDindex].CaseIDs;
+
+                    Console.WriteLine("caseIDs list: ");
+
+                    newCaseIDs = trail.GetRun(runID).CaseIDs;
+                    ulong[] uArray = new ulong[20];
+                    newCaseIDs.CopyTo(uArray);
+
+                    foreach (ulong i in uArray)
+                    {
+                        Console.WriteLine("item: --------> ");
+                        Console.WriteLine(i);
+                    }
+
+                    //for (int i=0; i<newCaseIDs.Count; i++)
+                    //{
+                    //    Console.WriteLine("item: --------> " + newCaseIDs.);
+                    //}
 
                     newCaseIDs.Add(caseToUpdateID);
-                    Console.WriteLine("caseIDs list: ");
-                    for (int i=0; i<newCaseIDs.Count; i++)
-                    {
-                        Console.WriteLine("item: --------> " + newCaseIDs[i].ToString());
-                    }
-                    trail.UpdatePlanEntry(TestPlanID, trail.GetPlan(TestPlanID).Entries[runIDindex].ID, Globals.TRRunName, null, newCaseIDs);
-                    //trail.UpdateRun(runID, Globals.TRRunName, null, null, newCaseIDs);
+
+
+                    //trail.UpdatePlanEntry(TestPlanID, trail.GetPlan(TestPlanID).Entries[runIDindex].ID, Globals.TRRunName, null, newCaseIDs);
+                    trail.UpdateRun(runID, Globals.TRRunName, null, null, newCaseIDs);
                     System.Threading.Thread.Sleep(3000);
                     CasesList = trail.GetTests(runID);
                     for (int i = 0; i < CasesList.Count; i++)
