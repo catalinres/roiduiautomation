@@ -114,21 +114,26 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
                 Globals.TRRunName = DateTime.Now.ToShortDateString() + " - Automated Run"; //this will not be used if the env variable TR_RUN_NAME exists and has a value
             }
             //If current test run does not exist, create it and get the ID, else get ID from existing one
-            List<TestRail.Types.Run> Test_Runs = trail.GetRuns(TestProjectID);
-            ulong runID = 0;
+            List<TestRail.Types.PlanEntry> Test_Runs = trail.GetPlan(TestPlanID).Entries;
+            int runIDindex = -1;
             Console.WriteLine("---------- TEST RUNS LIST");
             for (int i = 0; i < Test_Runs.Count; i++)
             {
                 Console.WriteLine("---------- " + Test_Runs[i].Name);
                 if (Test_Runs[i].Name == Globals.TRRunName)
                 {
-                    runID = Test_Runs[i].ID.Value;
+                    runIDindex = i;
                 }
             }
-            if (runID !=0) //run exists so let's add the scenario to it and also add the result to the scenario
+            if (runIDindex != -1) //run exists so let's add the scenario to it and also add the result to the scenario
             {
                 //update existing test run -> add current scenario if not in there already
+
+                Console.WriteLine("-----!!!!!!!! Value for the test run ID: " + trail.GetPlan(TestPlanID).Entries[runIDindex].RunList[0].ID.Value.ToString());
+                ulong runID = trail.GetPlan(TestPlanID).Entries[runIDindex].RunList[0].ID.Value;
                 List<TestRail.Types.Test> CasesList = trail.GetTests(runID);
+                //List<TestRail.Types.Test> CasesList = trail.GetPlan(TestPlanID).Entries[runIDindex].RunList[0].ID.Value;
+                //List<ulong> CasesList = trail.GetPlan(TestPlanID).Entries[runIDindex].CaseIDs;
                 ulong TCaseID = 0;
                 for (int i = 0; i < CasesList.Count; i++)
                 {
@@ -182,21 +187,37 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
                 trail.AddPlanEntry(TestPlanID, TestSuiteID, Globals.TRRunName, null, newCaseIDs);
                 System.Threading.Thread.Sleep(3000);
                 //search for test run id (newly added run)
-                Test_Runs = trail.GetRuns(TestProjectID);
+                Test_Runs = trail.GetPlan(TestPlanID).Entries;
+                runIDindex = -1;
                 Console.WriteLine("---------- TEST RUNS LIST");
                 for (int i = 0; i < Test_Runs.Count; i++)
                 {
                     Console.WriteLine("---------- " + Test_Runs[i].Name);
                     if (Test_Runs[i].Name == Globals.TRRunName)
                     {
-                        runID = Test_Runs[i].ID.Value;
+                        runIDindex = i;
                     }
                 }
-                if (runID == 0)
+
+                //Test_Runs = trail.GetRuns(TestProjectID);
+                //Console.WriteLine("---------- TEST RUNS LIST");
+                //for (int i = 0; i < Test_Runs.Count; i++)
+                //{
+                //    Console.WriteLine("---------- " + Test_Runs[i].Name);
+                //    if (Test_Runs[i].Name == Globals.TRRunName)
+                //    {
+                //        runID = Test_Runs[i].ID.Value;
+                //    }
+                //}
+                if (runIDindex == -1)
                 {
                     Console.WriteLine("!!!!!!!! ========= SOMEHOW THE RUN ID is 0  - run was not added to test plan ========== !!!!!!!");
                 }
                 //search for the test id inside the run
+                ulong runID = trail.GetPlan(TestPlanID).Entries[runIDindex].RunList[0].ID.Value;
+                Console.WriteLine("-----!!!!!!!! Value for the test run ID: " + trail.GetPlan(TestPlanID).Entries[runIDindex].RunList[0].ID.Value.ToString());
+                Console.WriteLine("-----!!!!!!!! Value for the test run Name (RunList[0]): " + trail.GetPlan(TestPlanID).Entries[runIDindex].RunList[0].Name);
+
                 List<TestRail.Types.Test> CasesList = trail.GetTests(runID);
                 ulong TCaseID = 0;
                 for (int i = 0; i < CasesList.Count; i++)
