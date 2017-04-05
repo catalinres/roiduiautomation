@@ -149,16 +149,21 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
                     //Untested = 3,
                     //Retest = 4,
                     //Failed = 5,
-                    trail.AddResultForCase(runID, TCaseID, TestRail.Types.ResultStatus.Passed, "Test Run Result added automatically", null, null, null, null, null);
+                    //TestRail.Types.ResultStatus TCStatus = new TestRail.Types.ResultStatus();
+                    //TCStatus = TestRail.Types.ResultStatus.Passed;
+                    trail.AddResult(TCaseID, TestRail.Types.ResultStatus.Passed, "Test Run Result added automatically", null, null, null, null, null);
+                    //trail.AddResultForCase(runID, TCaseID, TCStatus, "Test Run Result added automatically", null, null, null, null, null);
+                    //trail.AddResultForCase(runID, TCaseID, TestRail.Types.ResultStatus.Passed, "Test Run Result added automatically", null, null, null, null, null);
                 }
                 else  //test case was not added to test run so we are adding it to the test run and setting its run result
                 {
-//!                    TestRail.Types.Case newCase = trail.GetCase(caseToUpdateID);
-                    HashSet<ulong> newCaseIDs = new HashSet<ulong>();
-//                    List<ulong> newCaseIDs = new List<ulong>();
+                    
+                    //!TestRail.Types.Case newCase = trail.GetCase(caseToUpdateID);
+                    //HashSet<ulong> newCaseIDs = new HashSet<ulong>();
+                    List<ulong> newCaseIDs = new List<ulong>();
                     newCaseIDs.Add(caseToUpdateID);
-//                    trail.UpdatePlanEntry(TestPlanID, runID.ToString(), Globals.TRRunName, null, newCaseIDs);
-                    trail.UpdateRun(runID, Globals.TRRunName, null, null, newCaseIDs);
+                    trail.UpdatePlanEntry(TestPlanID, trail.GetPlan(TestPlanID).Entries[runIDindex].ID, Globals.TRRunName, null, newCaseIDs);
+                    //trail.UpdateRun(runID, Globals.TRRunName, null, null, newCaseIDs);
                     System.Threading.Thread.Sleep(3000);
                     CasesList = trail.GetTests(runID);
                     for (int i = 0; i < CasesList.Count; i++)
@@ -170,7 +175,11 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
                     }
                     if (TCaseID !=0)
                     {
-                        trail.AddResultForCase(runID, TCaseID, TestRail.Types.ResultStatus.Passed, "Test Run Result added automatically", null, null, null, null, null);
+                        //TestRail.Types.ResultStatus TCStatus = new TestRail.Types.ResultStatus();
+                        //TCStatus = TestRail.Types.ResultStatus.Passed;
+                        trail.AddResult(TCaseID, TestRail.Types.ResultStatus.Passed, "Test Run Result added automatically", null, null, null, null, null);
+                        //trail.AddResultForCase(runID, TCaseID, TCStatus, "Test Run Result added automatically", null, null, null, null, null);
+                        //trail.AddResultForCase(runID, TCaseID, TestRail.Types.ResultStatus.Passed, "Test Run Result added automatically", null, null, null, null, null);
                     }
                     else
                     {
@@ -232,7 +241,11 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
                     Console.WriteLine("!!!!!!!! ========= SOMEHOW THE TC ID is 0  - test was not added to test run when creating the test run ========== !!!!!!!");
                 }
                 //add result for test inside the test run
-                trail.AddResultForCase(runID, TCaseID, TestRail.Types.ResultStatus.Passed, "Test Run Result added automatically", null, null, null, null, null);
+
+                //TestRail.Types.ResultStatus TCStatus = new TestRail.Types.ResultStatus();
+                //TCStatus = TestRail.Types.ResultStatus.Passed;
+                trail.AddResult(TCaseID, TestRail.Types.ResultStatus.Passed, "Test Run Result added automatically", null, null, null, null, null);
+                //trail.AddResultForCase(runID, TCaseID, TCStatus, "Test Run Result added automatically", null, null, null, null, null);
 
             }
 
