@@ -158,55 +158,58 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
                 }
                 else  //test case was not added to test run so we are adding it to the test run and setting its run result
                 {
+
+                    Console.WriteLine("ZZZZZZZZ - tryin to add case to test run:---");
+                    trail.AddResultForCase(runID, caseToUpdateID, TestRail.Types.ResultStatus.Passed, "Test Run Result added automatically", null, null, null, null, null);
                     
-                    //!TestRail.Types.Case newCase = trail.GetCase(caseToUpdateID);
-                    HashSet<ulong> newCaseIDs = new HashSet<ulong>();
-                    //List<ulong> newCaseIDs = new List<ulong>();
-                    //newCaseIDs = trail.GetPlan(TestPlanID).Entries[runIDindex].CaseIDs;
+                    ////!TestRail.Types.Case newCase = trail.GetCase(caseToUpdateID);
+                    //HashSet<ulong> newCaseIDs = new HashSet<ulong>();
+                    ////List<ulong> newCaseIDs = new List<ulong>();
+                    ////newCaseIDs = trail.GetPlan(TestPlanID).Entries[runIDindex].CaseIDs;
 
-                    Console.WriteLine("caseIDs list: ");
+                    //Console.WriteLine("caseIDs list: ");
 
-                    newCaseIDs = trail.GetRun(runID).CaseIDs;
-                    ulong[] uArray = new ulong[20];
-                    newCaseIDs.CopyTo(uArray);
+                    //newCaseIDs = trail.GetRun(runID).CaseIDs;
+                    //ulong[] uArray = new ulong[20];
+                    //newCaseIDs.CopyTo(uArray);
 
-                    foreach (ulong i in uArray)
-                    {
-                        Console.WriteLine("item: --------> ");
-                        Console.WriteLine(i);
-                    }
-
-                    //for (int i=0; i<newCaseIDs.Count; i++)
+                    //foreach (ulong i in uArray)
                     //{
-                    //    Console.WriteLine("item: --------> " + newCaseIDs.);
+                    //    Console.WriteLine("item: --------> ");
+                    //    Console.WriteLine(i);
                     //}
 
-                    newCaseIDs.Add(caseToUpdateID);
+                    ////for (int i=0; i<newCaseIDs.Count; i++)
+                    ////{
+                    ////    Console.WriteLine("item: --------> " + newCaseIDs.);
+                    ////}
+
+                    //newCaseIDs.Add(caseToUpdateID);
 
 
-                    //trail.UpdatePlanEntry(TestPlanID, trail.GetPlan(TestPlanID).Entries[runIDindex].ID, Globals.TRRunName, null, newCaseIDs);
-                    trail.UpdateRun(runID, Globals.TRRunName, null, null, newCaseIDs);
-                    System.Threading.Thread.Sleep(3000);
-                    CasesList = trail.GetTests(runID);
-                    for (int i = 0; i < CasesList.Count; i++)
-                    {
-                        if (CasesList[i].Title.Contains(currentScenarioID))
-                        {
-                            TCaseID = CasesList[i].ID.Value;
-                        }
-                    }
-                    if (TCaseID !=0)
-                    {
-                        //TestRail.Types.ResultStatus TCStatus = new TestRail.Types.ResultStatus();
-                        //TCStatus = TestRail.Types.ResultStatus.Passed;
-                        trail.AddResult(TCaseID, TestRail.Types.ResultStatus.Passed, "Test Run Result added automatically", null, null, null, null, null);
-                        //trail.AddResultForCase(runID, TCaseID, TCStatus, "Test Run Result added automatically", null, null, null, null, null);
-                        //trail.AddResultForCase(runID, TCaseID, TestRail.Types.ResultStatus.Passed, "Test Run Result added automatically", null, null, null, null, null);
-                    }
-                    else
-                    {
-                        Console.WriteLine("!!!!!!!! ========= SOMEHOW THE TEST WAS NOT ADDED To the test run ========== !!!!!!!");
-                    }
+                    ////trail.UpdatePlanEntry(TestPlanID, trail.GetPlan(TestPlanID).Entries[runIDindex].ID, Globals.TRRunName, null, newCaseIDs);
+                    //trail.UpdateRun(runID, Globals.TRRunName, null, null, newCaseIDs);
+                    //System.Threading.Thread.Sleep(3000);
+                    //CasesList = trail.GetTests(runID);
+                    //for (int i = 0; i < CasesList.Count; i++)
+                    //{
+                    //    if (CasesList[i].Title.Contains(currentScenarioID))
+                    //    {
+                    //        TCaseID = CasesList[i].ID.Value;
+                    //    }
+                    //}
+                    //if (TCaseID != 0)
+                    //{
+                    //    //TestRail.Types.ResultStatus TCStatus = new TestRail.Types.ResultStatus();
+                    //    //TCStatus = TestRail.Types.ResultStatus.Passed;
+                    //    trail.AddResult(TCaseID, TestRail.Types.ResultStatus.Passed, "Test Run Result added automatically", null, null, null, null, null);
+                    //    //trail.AddResultForCase(runID, TCaseID, TCStatus, "Test Run Result added automatically", null, null, null, null, null);
+                    //    //trail.AddResultForCase(runID, TCaseID, TestRail.Types.ResultStatus.Passed, "Test Run Result added automatically", null, null, null, null, null);
+                    //}
+                    //else
+                    //{
+                    //    Console.WriteLine("!!!!!!!! ========= SOMEHOW THE TEST WAS NOT ADDED To the test run ========== !!!!!!!");
+                    //}
 
                 }
 
