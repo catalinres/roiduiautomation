@@ -159,12 +159,21 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
                 {
                     
                     //!TestRail.Types.Case newCase = trail.GetCase(caseToUpdateID);
-                    //HashSet<ulong> newCaseIDs = new HashSet<ulong>();
-                    List<ulong> newCaseIDs = new List<ulong>();
-                    newCaseIDs = trail.GetPlan(TestPlanID).Entries[runIDindex].CaseIDs;
+                    HashSet<ulong> newCaseIDs = new HashSet<ulong>();
+                    //List<ulong> newCaseIDs = new List<ulong>();
+                    //newCaseIDs = trail.GetPlan(TestPlanID).Entries[runIDindex].CaseIDs;
+                    newCaseIDs = trail.GetRun(runID).CaseIDs;
                     newCaseIDs.Add(caseToUpdateID);
-                    trail.UpdatePlanEntry(TestPlanID, trail.GetPlan(TestPlanID).Entries[runIDindex].ID, Globals.TRRunName, null, newCaseIDs);
-                    //trail.UpdateRun(runID, Globals.TRRunName, null, null, newCaseIDs);
+                    Console.WriteLine("caseIDs list: ");
+                    //for (int i=0; i<newCaseIDs.Count; i++)
+                    //{
+                    //    trail.GetRun(runID).CaseIDs.Add(caseToUpdateID);
+                    //    //Console.WriteLine(
+                    //}
+                    
+                    //trail.UpdatePlanEntry(TestPlanID, trail.GetPlan(TestPlanID).Entries[runIDindex].ID, Globals.TRRunName, null, newCaseIDs);
+
+                    trail.UpdateRun(runID, Globals.TRRunName, null, null, newCaseIDs);
                     System.Threading.Thread.Sleep(3000);
                     CasesList = trail.GetTests(runID);
                     for (int i = 0; i < CasesList.Count; i++)
