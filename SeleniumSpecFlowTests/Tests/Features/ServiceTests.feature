@@ -12,13 +12,16 @@ Scenario: Services_01 - Add a service
 
 Scenario: Services_02 - Delete a service
 	Given I navigate to Service Catalog
-	And I click on the service '--2Test Service A'
+	And I click on the service '--1Test Service A'
 	Then The address should contain 'Services/Detail'
 	And The address should contain a valid Guid
 	Given I click Delete in the bottom bar
 	And I wait until the page is redirected
 	Then The address should not contain 'Services/Detail'
 	And The address should not contain a valid Guid
+
+Scenario: Services_03 - DEMO
+	Given I navigate to Service Catalog
 
 	#Scenario: Add and edit a service
 	#Given I navigate to Service Catalog
