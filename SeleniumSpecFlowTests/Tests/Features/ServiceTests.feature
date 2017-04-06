@@ -20,9 +20,6 @@ Scenario: Services_02 - Delete a service
 	Then The address should not contain 'Services/Detail'
 	And The address should not contain a valid Guid
 
-Scenario: Services_03 - DEMO
-	Given I navigate to Service Catalog
-
 	#Scenario: Add and edit a service
 	#Given I navigate to Service Catalog
 	#And I click Add in the bottom bar
