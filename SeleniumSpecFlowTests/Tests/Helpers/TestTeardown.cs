@@ -40,6 +40,10 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
             var scenarioTitle = ScenarioContext.Current.ScenarioInfo.Title;
             var scenarioTags = ScenarioContext.Current.ScenarioInfo.Tags;
             var currentScenarioID = scenarioTitle.Split(' ')[0];
+            //Get current scenario status (P/F)
+            //Get error on failed tests:
+
+
             //Get current scenario steps by parsing the feature file
             string scenarioText = "";
             string[] lines = File.ReadAllLines(FeatureFilePath, System.Text.Encoding.UTF8);
@@ -152,7 +156,15 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
                     //TestRail.Types.ResultStatus TCStatus = new TestRail.Types.ResultStatus();
                     //TCStatus = TestRail.Types.ResultStatus.Passed;
                     Console.WriteLine("-----Updating existing test case in test run, no need to add another test case to the run: ");
-                    trail.AddResult(TCaseID, TestRail.Types.ResultStatus.Passed, "Test Run Result added automatically", null, null, null, null, null);
+                    if (ScenarioContext.Current.TestError != null)
+                    {
+                        trail.AddResult(TCaseID, TestRail.Types.ResultStatus.Failed, "Test Run Result added automatically " + System.Environment.NewLine + ScenarioContext.Current.TestError.Message, null, null, null, null, null);
+                    }
+                    else
+                    {
+                        trail.AddResult(TCaseID, TestRail.Types.ResultStatus.Passed, "Test Run Result added automatically ", null, null, null, null, null);
+                    }
+                    //trail.AddResult(TCaseID, TestRail.Types.ResultStatus.Passed, "Test Run Result added automatically", null, null, null, null, null);
                     //trail.AddResultForCase(runID, TCaseID, TCStatus, "Test Run Result added automatically", null, null, null, null, null);
                     //trail.AddResultForCase(runID, TCaseID, TestRail.Types.ResultStatus.Passed, "Test Run Result added automatically", null, null, null, null, null);
                 }
@@ -207,7 +219,16 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
                         //TestRail.Types.ResultStatus TCStatus = new TestRail.Types.ResultStatus();
                         //TCStatus = TestRail.Types.ResultStatus.Passed;
                         Console.WriteLine("!!!!!!!! ========= case was added to the test run and now updating the test run result ========== !!!!!!!");
-                        trail.AddResult(TCaseID, TestRail.Types.ResultStatus.Passed, "Test Run Result added automatically", null, null, null, null, null);
+                        if (ScenarioContext.Current.TestError != null)
+                        {
+                            trail.AddResult(TCaseID, TestRail.Types.ResultStatus.Failed, "Test Run Result added automatically " + System.Environment.NewLine + ScenarioContext.Current.TestError.Message, null, null, null, null, null);
+                        }
+                        else
+                        {
+                            trail.AddResult(TCaseID, TestRail.Types.ResultStatus.Passed, "Test Run Result added automatically ", null, null, null, null, null);
+                        }
+
+                        //                        trail.AddResult(TCaseID, TestRail.Types.ResultStatus.Passed, "Test Run Result added automatically", null, null, null, null, null);
                         //trail.AddResultForCase(runID, TCaseID, TCStatus, "Test Run Result added automatically", null, null, null, null, null);
                         //trail.AddResultForCase(runID, TCaseID, TestRail.Types.ResultStatus.Passed, "Test Run Result added automatically", null, null, null, null, null);
                     }
@@ -274,7 +295,14 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
 
                 //TestRail.Types.ResultStatus TCStatus = new TestRail.Types.ResultStatus();
                 //TCStatus = TestRail.Types.ResultStatus.Passed;
-                trail.AddResult(TCaseID, TestRail.Types.ResultStatus.Passed, "Test Run Result added automatically", null, null, null, null, null);
+                if (ScenarioContext.Current.TestError != null)
+                {
+                    trail.AddResult(TCaseID, TestRail.Types.ResultStatus.Failed, "Test Run Result added automatically " + System.Environment.NewLine + ScenarioContext.Current.TestError.Message, null, null, null, null, null);
+                }
+                else
+                {
+                    trail.AddResult(TCaseID, TestRail.Types.ResultStatus.Passed, "Test Run Result added automatically ", null, null, null, null, null);
+                }
                 //trail.AddResultForCase(runID, TCaseID, TCStatus, "Test Run Result added automatically", null, null, null, null, null);
 
             }
@@ -296,15 +324,6 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
             //trail.AddPlanEntry(TestPlanID, TestSuiteID, "TestRunCreatedByMe",null, caseIDsList);
 
 
-            //Get current scenario status (P/F)
-
-            //Get error on failed tests:
-            //if (ScenarioContext.Current.TestError != null)
-            //{
-            //    var error = ScenarioContext.Current.TestError;
-            //    string errMsg = error.Message;
-            //    string errType = error.GetType().Name;
-            //}
 
         }
 

@@ -100,7 +100,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 14
  testRunner.Given("I navigate to Service Catalog", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 15
- testRunner.And("I click on the service \'--1Test Service A\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I click on the service \'--2Test Service A\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 16
  testRunner.Then("The address should contain \'Services/Detail\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 17

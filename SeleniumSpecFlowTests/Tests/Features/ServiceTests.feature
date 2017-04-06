@@ -12,7 +12,7 @@ Scenario: Services_01 - Add a service
 
 Scenario: Services_02 - Delete a service
 	Given I navigate to Service Catalog
-	And I click on the service '--1Test Service A'
+	And I click on the service '--2Test Service A'
 	Then The address should contain 'Services/Detail'
 	And The address should contain a valid Guid
 	Given I click Delete in the bottom bar
