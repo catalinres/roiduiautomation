@@ -1,6 +1,6 @@
 ﻿Feature: ServiceTests
 
-Scenario: Services_01 - Add a service DEMO
+Scenario: Services_01 - Add a service
 	Given I navigate to Service Catalog
 	And I click Add in the bottom bar
 	And I fill in '--1Test Service A' in the Name field
@@ -19,10 +19,6 @@ Scenario: Services_02 - Delete a service
 	And I wait until the page is redirected
 	Then The address should not contain 'Services/Detail'
 	And The address should not contain a valid Guid
-
-Scenario: Services_03 - DEMO
-	Given I navigate to Service Catalog
-
 
 	#Scenario: Add and edit a service
 	#Given I navigate to Service Catalog

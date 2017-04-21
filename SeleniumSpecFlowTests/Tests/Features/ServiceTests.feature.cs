@@ -64,10 +64,10 @@ namespace SeleniumSpecFlowTests.Tests.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Services_01 - Add a service DEMO")]
-        public virtual void Services_01_AddAServiceDEMO()
+        [NUnit.Framework.DescriptionAttribute("Services_01 - Add a service")]
+        public virtual void Services_01_AddAService()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Services_01 - Add a service DEMO", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Services_01 - Add a service", ((string[])(null)));
 #line 3
 this.ScenarioSetup(scenarioInfo);
 #line 4
@@ -113,19 +113,6 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.Then("The address should not contain \'Services/Detail\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 21
  testRunner.And("The address should not contain a valid Guid", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Services_03 - DEMO")]
-        public virtual void Services_03_DEMO()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Services_03 - DEMO", ((string[])(null)));
-#line 23
-this.ScenarioSetup(scenarioInfo);
-#line 24
- testRunner.Given("I navigate to Service Catalog", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             this.ScenarioCleanup();
         }
