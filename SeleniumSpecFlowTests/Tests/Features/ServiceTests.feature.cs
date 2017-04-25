@@ -64,10 +64,10 @@ namespace SeleniumSpecFlowTests.Tests.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Services_01 - Add a service - DEMO")]
-        public virtual void Services_01_AddAService_DEMO()
+        [NUnit.Framework.DescriptionAttribute("Services_01 - Add a service - NEW UPDATED")]
+        public virtual void Services_01_AddAService_NEWUPDATED()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Services_01 - Add a service - DEMO", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Services_01 - Add a service - NEW UPDATED", ((string[])(null)));
 #line 3
 this.ScenarioSetup(scenarioInfo);
 #line 4
@@ -125,6 +125,19 @@ this.ScenarioSetup(scenarioInfo);
 #line 23
 this.ScenarioSetup(scenarioInfo);
 #line 24
+ testRunner.Given("I navigate to Service Catalog", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Services_04 - DEMO2")]
+        public virtual void Services_04_DEMO2()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Services_04 - DEMO2", ((string[])(null)));
+#line 26
+this.ScenarioSetup(scenarioInfo);
+#line 27
  testRunner.Given("I navigate to Service Catalog", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             this.ScenarioCleanup();
