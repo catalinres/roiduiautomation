@@ -235,8 +235,8 @@ namespace SeleniumSpecFlowTests.Tests.Helpers
                 {
                     Console.WriteLine("!!!!!!!! ========= SOMEHOW THE TC ID is 0  - test was not added to test run when creating the test run ========== !!!!!!!");
                 }
+                
                 //add result for test inside the test run
-
                 if (ScenarioContext.Current.TestError != null)
                 {
                     trail.AddResult(TCaseID, TestRail.Types.ResultStatus.Failed, "Test Run Result added automatically " + System.Environment.NewLine + ScenarioContext.Current.TestError.Message, null, null, null, null, null);
